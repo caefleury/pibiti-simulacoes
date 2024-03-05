@@ -16,11 +16,7 @@ def replicar_celula(atomos, vetores_rede, n_replicas_x, n_replicas_y):
     for i in range(n_replicas_x):
         for j in range(n_replicas_y):
             for atomo, posicao in atomos:
-                hipotenusa = 1.42
-                cateto = math.sqrt(hipotenusa**2 / 2) 
-                x_total = 2 * hipotenusa + 2 * cateto 
-                y_total = hipotenusa + 2 * cateto
-                nova_posicao = [posicao[0] + (x_total + vetores_rede[0]) * i , posicao[1] + (y_total + vetores_rede[1])*j , 0.0]
+                nova_posicao = [posicao[0] + (vetores_rede[0]) * i , posicao[1] + (vetores_rede[1])*j , 0.0]
                 atomos_replicados.append((atomo, nova_posicao))
     return atomos_replicados
 
@@ -37,8 +33,8 @@ def escrever_xyz(arquivo, n_atomos, comentarios, atomos):
 
 # Parâmetros
 arquivo_entrada = 'src/unit_cell.xyz'
-n_replicas_x = 2
-n_replicas_y = 1
+n_replicas_x = 10
+n_replicas_y = 10
 
 # Ler a célula unitária
 n_atomos, comentarios, atomos = ler_xyz(arquivo_entrada)
@@ -46,7 +42,6 @@ n_atomos, comentarios, atomos = ler_xyz(arquivo_entrada)
 # Obter os vetores de rede
 a = 6.3028
 b = 4.9302
-
 vetores_rede = [a,b]
 
 # Replicar a célula unitária
