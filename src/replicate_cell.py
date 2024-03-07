@@ -21,10 +21,10 @@ def replicar_celula(atomos, vetores_rede, n_replicas_x, n_replicas_y):
     return atomos_replicados
 
 # Escrever o arquivo XYZ
-def escrever_xyz(arquivo, n_atomos, comentarios, atomos):
+def escrever_xyz(arquivo, n_atomos, comentario, atomos):
     with open(arquivo, 'w') as f:
         f.write(str(n_atomos) + '\n')
-        f.write(comentarios + '\n')
+        f.write(comentario + '\n')
         for atomo, posicao in atomos:
             x = format(posicao[0], '.16f')
             y = format(posicao[1], '.16f')
@@ -33,11 +33,11 @@ def escrever_xyz(arquivo, n_atomos, comentarios, atomos):
 
 # Parâmetros
 arquivo_entrada = 'src/unit_cell.xyz'
-n_replicas_x = 10
-n_replicas_y = 10
+n_replicas_x = 15
+n_replicas_y = 15
 
 # Ler a célula unitária
-n_atomos, comentarios, atomos = ler_xyz(arquivo_entrada)
+n_atomos, comentario, atomos = ler_xyz(arquivo_entrada)
 
 # Obter os vetores de rede
 a = 6.3028
@@ -49,6 +49,6 @@ atomos_replicados = replicar_celula(atomos, vetores_rede, n_replicas_x, n_replic
 
 # Escrever o arquivo XYZ com a estrutura replicada
 arquivo_saida = 'src/structure.xyz'
-escrever_xyz(arquivo_saida, n_replicas_x * n_replicas_y * n_atomos, comentarios, atomos_replicados)
+escrever_xyz(arquivo_saida, n_replicas_x * n_replicas_y * n_atomos, comentario, atomos_replicados)
 
 print('Estrutura replicada com sucesso! Arquivo salvo em {}'.format(arquivo_saida))
