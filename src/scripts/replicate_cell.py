@@ -42,7 +42,6 @@ unit_cell_file = 'src/simulations/unit_cell.xyz'
 n_replications_x = 15
 n_replications_y = 15
 
-
 # Ler a célula unitária
 n_atoms, comment, atoms = read_xyz(unit_cell_file)
 
