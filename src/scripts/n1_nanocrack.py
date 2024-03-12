@@ -18,19 +18,19 @@ def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y)
             for index,(atom, position) in enumerate(atoms):
                 # POSICOES PERMANECEM CONSTANTES
                 new_position = [position[0] + (lattice_constants[0]) * i, position[1] + (lattice_constants[1])*j, 0.0]
-                if i == 2: # CENTRO DA FOLHA - (7 para 15x15)
+                if i == 7: # CENTRO DA FOLHA - (7 para 15x15)
                     # INICIO DO CRACK 3X1
-                    if j in [1,2,3]: # TERMINAR NA MOLECULA 7X8 (j < 8)
+                    if j in [6,7,8]: # TERMINAR NA MOLECULA 7X8 (j < 8)
                         # MOLECULA INICIAL DO CRACK EM UMA LINHA (começando na molecula 7x6)
-                        if j == 1: # j == 6
+                        if j == 6: # j == 6
                             if index in [0,1,2,3,4,8,9]:
                                 atom = 'H'
                                 replicated_atoms.append((atom, new_position))
-                        elif j == 2: # MOLECULA DO CENTRO (j ==7)
+                        elif j == 7: # MOLECULA DO CENTRO (j ==7)
                             if index in [3,4,8,9]:
                                 atom = 'H'
                                 replicated_atoms.append((atom, new_position))
-                        elif j == 3: #(j==8)
+                        elif j == 8: #(j==8)
                             if index in [3,4,5,6,7,8,9]:
                                 atom = 'H'
                                 replicated_atoms.append((atom, new_position))
@@ -59,8 +59,8 @@ lattice_constants = [a, b]
 
 # Parâmetros
 unit_cell_file = 'src/simulations/unit_cell.xyz'
-n_replications_x = 5
-n_replications_y = 5
+n_replications_x = 15
+n_replications_y = 15
 
 OUTPUT_STRUCTURE_FILE = 'src/simulations/n1_nanocrack_structure.xyz'
 
