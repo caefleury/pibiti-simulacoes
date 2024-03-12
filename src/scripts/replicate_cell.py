@@ -14,7 +14,7 @@ def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y)
     replicated_atoms = []
     for i in range(n_replications_x):
         for j in range(n_replications_y):
-            for index,(atom, position) in enumerate(atoms):
+            for index, (atom, position) in enumerate(atoms):
                 new_position = [
                     position[0] + (lattice_constants[0]) * i, position[1] + (lattice_constants[1])*j, 0.0]
                 replicated_atoms.append((atom, new_position))
@@ -54,7 +54,7 @@ replicated_atoms = replicate_cell(
 OUTPUT_STRUCTURE_FILE = 'src/simulations/structure.xyz'
 
 write_xyz(OUTPUT_STRUCTURE_FILE, n_replications_x *
-             n_replications_y * n_atoms, comment, replicated_atoms)
+          n_replications_y * n_atoms, comment, replicated_atoms)
 
 print('Estrutura replicada com sucesso! arquivo salvo em {}'.format(
     OUTPUT_STRUCTURE_FILE))

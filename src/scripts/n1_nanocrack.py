@@ -11,36 +11,41 @@ def read_xyz(file):
     return n_atoms, comment, atoms
 
 # Replicar a célula unitária com os nanocracks lineares (n1)
+
+
 def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y):
     replicated_atoms = []
     for i in range(n_replications_x):
         for j in range(n_replications_y):
-            for index,(atom, position) in enumerate(atoms):
+            for index, (atom, position) in enumerate(atoms):
                 # POSICOES PERMANECEM CONSTANTES
-                new_position = [position[0] + (lattice_constants[0]) * i, position[1] + (lattice_constants[1])*j, 0.0]
-                if i == 7: # CENTRO DA FOLHA - (7 para 15x15)
+                new_position = [
+                    position[0] + (lattice_constants[0]) * i, position[1] + (lattice_constants[1])*j, 0.0]
+                if i == 7:  # CENTRO DA FOLHA - (7 para 15x15)
                     # INICIO DO CRACK 3X1
-                    if j in [6,7,8]: # TERMINAR NA MOLECULA 7X8 (j < 8)
+                    if j in [6, 7, 8]:  # TERMINAR NA MOLECULA 7X8 (j < 8)
                         # MOLECULA INICIAL DO CRACK EM UMA LINHA (começando na molecula 7x6)
-                        if j == 6: # j == 6
-                            if index in [0,1,2,3,4,8,9]:
+                        if j == 6:  # j == 6
+                            if index in [0, 1, 2, 3, 4, 8, 9]:
                                 atom = 'H'
                                 replicated_atoms.append((atom, new_position))
-                        elif j == 7: # MOLECULA DO CENTRO (j ==7)
-                            if index in [3,4,8,9]:
+                        elif j == 7:  # MOLECULA DO CENTRO (j ==7)
+                            if index in [3, 4, 8, 9]:
                                 atom = 'H'
                                 replicated_atoms.append((atom, new_position))
-                        elif j == 8: #(j==8)
-                            if index in [3,4,5,6,7,8,9]:
+                        elif j == 8:  # (j==8)
+                            if index in [3, 4, 5, 6, 7, 8, 9]:
                                 atom = 'H'
                                 replicated_atoms.append((atom, new_position))
-                    else:  
+                    else:
                         replicated_atoms.append((atom, new_position))
                 else:
                     replicated_atoms.append((atom, new_position))
-    return [len(replicated_atoms),replicated_atoms]
+    return [len(replicated_atoms), replicated_atoms]
 
 # Escrever o arquivo .xyz
+
+
 def write_xyz(file, n_atoms, comment, atoms):
     with open(file, 'w') as f:
         f.write(str(n_atoms) + '\n')
@@ -68,7 +73,8 @@ OUTPUT_STRUCTURE_FILE = 'src/simulations/n1_nanocrack_structure.xyz'
 n_atoms, comment, atoms = read_xyz(unit_cell_file)
 
 # Replicar a célula unitária
-replicated_atoms = replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y)
+replicated_atoms = replicate_cell(
+    atoms, lattice_constants, n_replications_x, n_replications_y)
 
 n_atoms_modified = replicated_atoms[0]
 atoms_modified = replicated_atoms[1]
