@@ -1,3 +1,5 @@
+
+
 def read_xyz(file):
     with open(file, 'r') as f:
         n_atoms = int(f.readline())

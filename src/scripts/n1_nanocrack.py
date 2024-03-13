@@ -1,9 +1,7 @@
 
-
 import sys
 sys.path.append('./src/utils')
 sys.path.append('./src/utils/cracks')
-print(sys.path)
 from n2_crack import left_crack, center_crack, right_crack
 from utils import read_xyz, write_xyz
 
@@ -48,7 +46,7 @@ lattice_constants = [a, b]
 
 # Parâmetros
 INPUT_UNIT_CELL_FILE = 'src/simulations/unit_cell.xyz'
-OUTPUT_STRUCTURE_FILE = 'src/simulations/n2_nanocrack_structure.xyz'
+OUTPUT_STRUCTURE_FILE = 'src/simulations/n1_nanocrack_structure.xyz'
 n_replications_x = 17
 n_replications_y = 19
 crack_size = 9
