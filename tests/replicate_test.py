@@ -5,7 +5,7 @@ import pytest
 from utils.my_utils import read_xyz
 
 class TestReplicate():
-    def test_read():
+    def test_read(self):
         test_file = 'tests/test_read.xyz'
         number_of_atoms, comment, atom_list = read_xyz(test_file)
         assert number_of_atoms == 10
