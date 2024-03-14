@@ -1,4 +1,5 @@
 
+
 def center_crack(y_index, atom, n_replications_y, crack_size, atom_index, new_position):
     floor = int(n_replications_y//2 - ((crack_size - 1)/2))
     ceiling = int(n_replications_y//2 + ((crack_size - 1)/2))

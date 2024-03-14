@@ -1,7 +1,6 @@
 
-import sys
-sys.path.append('./src/utils')
-from utils import *
+
+from my_utils import read_xyz,write_xyz
 from n1_crack import center_crack
 
 

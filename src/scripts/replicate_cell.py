@@ -1,7 +1,8 @@
 
-from utils import read_xyz, write_xyz
+
 import sys
 sys.path.append('./src/utils')
+from utils import read_xyz, write_xyz
 
 # Replicar a célula unitária
 

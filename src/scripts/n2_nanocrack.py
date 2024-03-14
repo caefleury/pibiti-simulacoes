@@ -1,9 +1,7 @@
 
 
-import sys
-sys.path.append('./src/utils')
-from utils import read_xyz,write_xyz
-from n2_crack import *
+from my_utils import read_xyz,write_xyz
+from n2_crack import left_crack,center_crack,right_crack
 
 # Replicar a célula unitária com os nanocracks lineares (n2)
 def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y, crack_size):
