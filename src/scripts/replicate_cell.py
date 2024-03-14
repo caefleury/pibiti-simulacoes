@@ -27,18 +27,19 @@ unit_cell_file = 'src/simulations/unit_cell.xyz'
 n_replications_x = 15
 n_replications_y = 15
 
-# Ler a célula unitária
-n_atoms, comment, atoms = read_xyz(unit_cell_file)
+if (__name__ == '__main__'):
+    # Ler a célula unitária
+    n_atoms, comment, atoms = read_xyz(unit_cell_file)
 
-# Replicar a célula unitária
-replicated_atoms = replicate_cell(
-    atoms, lattice_constants, n_replications_x, n_replications_y)
+    # Replicar a célula unitária
+    replicated_atoms = replicate_cell(
+        atoms, lattice_constants, n_replications_x, n_replications_y)
 
-# Escreva o arquivo .xyz com a estrutura replicada
-OUTPUT_STRUCTURE_FILE = 'src/simulations/structure.xyz'
+    # Escreva o arquivo .xyz com a estrutura replicada
+    OUTPUT_STRUCTURE_FILE = 'src/simulations/structure.xyz'
 
-write_xyz(OUTPUT_STRUCTURE_FILE, n_replications_x *
-          n_replications_y * n_atoms, comment, replicated_atoms)
+    write_xyz(OUTPUT_STRUCTURE_FILE, n_replications_x *
+            n_replications_y * n_atoms, comment, replicated_atoms)
 
-print('Estrutura replicada com sucesso! arquivo salvo em {}'.format(
-    OUTPUT_STRUCTURE_FILE))
+    print('Estrutura replicada com sucesso! arquivo salvo em {}'.format(
+        OUTPUT_STRUCTURE_FILE))
