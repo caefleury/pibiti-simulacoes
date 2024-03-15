@@ -4,8 +4,8 @@ Repositório com as simulações do projeto de PIBITI focado em simulações ter
 
 ### Título do projeto : Propriedades Físicas de Sistemas Nanoestruturados na Presença de Defeitos
 
-- ### Início: Setembro 2023
-- ### Fim: Setembro 2024
+- Início: Setembro 2023
+- Fim: Setembro 2024
 
 ## Objetivos:
 
@@ -15,7 +15,7 @@ Repositório com as simulações do projeto de PIBITI focado em simulações ter
 
 ## Configurações iniciais
 
-### Configuração do PYTHONPATH
+### Configurando o PYTHONPATH Localmente
 
 Acesse o ~/.bashrc
 
@@ -30,6 +30,8 @@ export PYTHONPATH=$PWD/src/utils
 ```
 
 Subistituir `$PWD` pelo caminho até o repositorio. Exemplo: `/home/my_user/.../<nome_do_repositorio>`
+
+### Configuração do PYTHONPATH em ambiente virtual
 
 ## Como rodar o arquivo genético:
 
