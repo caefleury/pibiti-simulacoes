@@ -1,7 +1,7 @@
 
 
-from my_utils import read_xyz,write_xyz
-from n1_crack import center_crack
+from my_utils import read_xyz, write_xyz
+from n1_crack_utils import center_crack
 
 
 # Replicar a célula unitária com os nanocracks lineares (n2)
@@ -19,17 +19,16 @@ def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y,
                         atom, new_position = center_crack(
                             y, atom, n_replications_y, crack_size, index, new_position)
                         replicated_atoms.append((atom, new_position))
-                
+
                 else:
                     replicated_atoms.append((atom, new_position))
-
 
     return [len(replicated_atoms), replicated_atoms]
 
 
 # Parâmetros
 INPUT_UNIT_CELL_FILE = 'src/simulations/unit_cell.xyz'
-OUTPUT_STRUCTURE_FILE = 'src/simulations/n1_nanocrack_structure.xyz'
+OUTPUT_STRUCTURE_FILE = 'src/simulations/n1_crack_structure.xyz'
 n_replications_x = 17
 n_replications_y = 19
 crack_size = 9
