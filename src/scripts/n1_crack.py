@@ -1,11 +1,11 @@
 
 
 from my_utils import read_xyz, write_xyz
-from n1_crack_utils import center_crack
+from n1_crack_utils import y_center_crack,x_center_crack
 
 
 # Replicar a célula unitária com os nanocracks lineares (n2)
-def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y, crack_size):
+def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y, crack_size,crack_direction):
     replicated_atoms = []
     for x in range(n_replications_x):
         for y in range(n_replications_y):
@@ -13,15 +13,25 @@ def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y,
                 # POSICOES PERMANECEM CONSTANTES
                 new_position = [
                     position[0] + (lattice_constants[0]) * x, position[1] + (lattice_constants[1]) * y, 0.0]
-
-                if x == (n_replications_x // 2):
-                    if center_crack(y, atom, n_replications_y, crack_size, index, new_position):
-                        atom, new_position = center_crack(
-                            y, atom, n_replications_y, crack_size, index, new_position)
+                if crack_direction == 'y':
+                    if x == (n_replications_x // 2):
+                        if y_center_crack(y, atom, n_replications_y, crack_size, index, new_position):
+                            atom, new_position = y_center_crack(
+                                y, atom, n_replications_y, crack_size, index, new_position)
+                            replicated_atoms.append((atom, new_position))
+                    else:
                         replicated_atoms.append((atom, new_position))
 
-                else:
-                    replicated_atoms.append((atom, new_position))
+                elif crack_direction == 'x':
+                    if y == (n_replications_y // 2):
+                        if x_center_crack(x, atom, n_replications_x, crack_size, index, new_position):
+                            atom, new_position = x_center_crack(
+                                x, atom, n_replications_x, crack_size, index, new_position)
+                            replicated_atoms.append((atom, new_position))
+                    else:
+                        replicated_atoms.append((atom, new_position))
+
+                
 
     return [len(replicated_atoms), replicated_atoms]
 
@@ -32,6 +42,7 @@ OUTPUT_STRUCTURE_FILE = 'src/simulations/n1_crack_structure.xyz'
 n_replications_x = 17
 n_replications_y = 19
 crack_size = 9
+crack_direction = 'x'
 
 # Ler a célula unitária
 n_atoms, comment, atoms = read_xyz(INPUT_UNIT_CELL_FILE)
@@ -43,7 +54,7 @@ lattice_constants = [a, b]
 
 # Replicar a célula unitária
 replicated_atoms = replicate_cell(
-    atoms, lattice_constants, n_replications_x, n_replications_y, crack_size)
+    atoms, lattice_constants, n_replications_x, n_replications_y, crack_size,crack_direction)
 
 n_atoms_modified = replicated_atoms[0]
 atoms_modified = replicated_atoms[1]
