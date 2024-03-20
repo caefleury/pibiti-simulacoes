@@ -42,7 +42,7 @@ OUTPUT_STRUCTURE_FILE = 'src/simulations/n1_crack_structure.xyz'
 n_replications_x = 17
 n_replications_y = 19
 crack_size = 9
-crack_direction = 'x'
+crack_direction = 'y'
 
 # Ler a célula unitária
 n_atoms, comment, atoms = read_xyz(INPUT_UNIT_CELL_FILE)
