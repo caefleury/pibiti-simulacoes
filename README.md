@@ -68,3 +68,26 @@ Acessar a pasta e executar o arquivo com a simulação do rasgo:
 ```
 python3 <nome_do_arquivo>.py
 ```
+
+## VMD Scripting 
+
+### set – Setting the unitcell parameters
+
+To be able to work correctly, all other procedures of the PBCTools plugin require the VMD unitcell parameters to be set. Some file formats and their readers provide the necessary information (e.g. the DCD, VTF and Amber crdbox formats). When the format does not provide the information, the parameters can either be set with help of the command pbc set, or they can be read in from a file in XST format via the procedure pbc readxst (see section 5).
+
+Syntax:
+
+```
+pbc set cell [options…]
+```
+Description
+
+Sets the VMD unit cell properties to cell in the specified frames. cell must either contain a single set of unit cell parameters that will be used in all frames of the molecule, or it must contain a parameter set for every frame.
+
+Example
+
+  Set the unit cell side length to 10 in all frames:
+
+  ```
+  pbc set {10.0 10.0 10.0}
+  ```
