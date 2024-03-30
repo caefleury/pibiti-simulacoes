@@ -13,4 +13,7 @@ if __name__ == "__main__":
     n2_crack.run('y')
     replicate_cell.run()
     print()
-    print("\033[1;32m" + "============================== Estruturas replicadas ===========================" + "\033[0m")
+    print(
+        "\033[1;32m" +
+        "============================== Estruturas replicadas ===========================" +
+        "\033[0m")

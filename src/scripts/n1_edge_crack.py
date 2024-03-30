@@ -5,7 +5,8 @@ from n1_crack_utils import edge_center_crack
 
 
 # Replicar a célula unitária com os nanocracks lineares (n2)
-def replicate_edge_crack(atoms, lattice_constants, n_replications_x, n_replications_y, crack_size):
+def replicate_edge_crack(atoms, lattice_constants,
+                         n_replications_x, n_replications_y, crack_size):
     replicated_atoms = []
     for x in range(n_replications_x):
         for y in range(n_replications_y):
@@ -15,7 +16,8 @@ def replicate_edge_crack(atoms, lattice_constants, n_replications_x, n_replicati
                     position[0] + (lattice_constants[0]) * x, position[1] + (lattice_constants[1]) * y, 0.0]
 
                 if x == (n_replications_x // 2):
-                    if edge_center_crack(y, atom, n_replications_y, crack_size, index, new_position):
+                    if edge_center_crack(
+                            y, atom, n_replications_y, crack_size, index, new_position):
                         atom, new_position = edge_center_crack(
                             y, atom, n_replications_y, crack_size, index, new_position)
                         replicated_atoms.append((atom, new_position))
@@ -24,6 +26,7 @@ def replicate_edge_crack(atoms, lattice_constants, n_replications_x, n_replicati
                     replicated_atoms.append((atom, new_position))
 
     return [len(replicated_atoms), replicated_atoms]
+
 
 def run():
     # Parâmetros
@@ -51,4 +54,5 @@ def run():
     # Escrever o arquivo .xyz com a estrutura replicada
     write_xyz(OUTPUT_STRUCTURE_FILE, n_atoms_modified, comment, atoms_modified)
 
-    print('Estrutura com rasgo em borda n1 replicada, arquivo salvo em {}'.format(OUTPUT_STRUCTURE_FILE))
+    print('Estrutura com rasgo em borda n1 replicada, arquivo salvo em {}'.format(
+        OUTPUT_STRUCTURE_FILE))

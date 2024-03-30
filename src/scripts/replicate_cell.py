@@ -7,15 +7,17 @@ sys.path.append('./src/utils')
 # Replicar a célula unitária
 
 
-def replicate_cell(atoms, lattice_constants, n_replications_x, n_replications_y):
+def replicate_cell(atoms, lattice_constants,
+                   n_replications_x, n_replications_y):
     replicated_atoms = []
     for i in range(n_replications_x):
         for j in range(n_replications_y):
             for index, (atom, position) in enumerate(atoms):
                 new_position = [
-                    position[0] + (lattice_constants[0]) * i, position[1] + (lattice_constants[1])*j, 0.0]
+                    position[0] + (lattice_constants[0]) * i, position[1] + (lattice_constants[1]) * j, 0.0]
                 replicated_atoms.append((atom, new_position))
     return replicated_atoms
+
 
 def run():
     # Parâmetros
@@ -39,7 +41,7 @@ def run():
     OUTPUT_STRUCTURE_FILE = 'src/simulations/pristine_structure.xyz'
 
     write_xyz(OUTPUT_STRUCTURE_FILE, n_replications_x *
-            n_replications_y * n_atoms, comment, replicated_atoms)
+              n_replications_y * n_atoms, comment, replicated_atoms)
 
     print('Estrutura "pristine" replicada com sucesso! arquivo salvo em {}'.format(
         OUTPUT_STRUCTURE_FILE))
