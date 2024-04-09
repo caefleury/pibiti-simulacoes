@@ -155,7 +155,7 @@ print   '# INICIO DA EQUILIBRACAO DA ESTRUTURA  #'
 print   '########################################'
 print   ' ' 
 # -----------------------------------------------------------------------------
-velocity    all create ${temperatura} 880032330 rot yes
+velocity    all create ${temperatura} 988851713 rot yes
 # -----------------------------------------------------------------------------
 reset_timestep  0
 fix     equilibracao all npt &

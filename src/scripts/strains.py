@@ -17,23 +17,28 @@ def run():
         reaxff_file = 'CHO2008-kc2-enable.reaxff'
 
         if folder == 'pristine':
+            pristine = True
             structure_charge_file = 'pristine_structure.charge'
-            simulation_folder = f'src/simulations/{folder}'
-            write_melting_seeds(simulation_folder, melting_data,
-                                structure_charge_file, reaxff_file)
-        elif folder == 'center_crack':
-            structure_charge_file = 'center_crack_structure.charge'
-        elif folder == 'x_axis_crack':
-            structure_charge_file = 'n1_x_axis_crack_structure.charge'
-        elif folder == 'y_axis_crack':
-            structure_charge_file = 'n1_y_axis_crack_structure.charge'
+        else:
+            pristine = False
+            if folder == 'center_crack':
+                structure_charge_file = 'center_crack_structure.charge'
+            elif folder == 'x_axis_crack':
+                crack = True
+                structure_charge_file = 'n1_x_axis_crack_structure.charge'
+            elif folder == 'y_axis_crack':
+                crack = True
+                structure_charge_file = 'n1_y_axis_crack_structure.charge'
 
         folder = f'src/simulations/{folder}'
+        if pristine:
+            write_melting_seeds(folder, melting_data,
+                                structure_charge_file, reaxff_file)
         write_strain_x_folders(folder, strain_x_data,
-                               structure_charge_file, reaxff_file)
+                                structure_charge_file, reaxff_file, pristine)
 
         write_strain_y_folders(folder, strain_y_data,
-                               structure_charge_file, reaxff_file)
+                                structure_charge_file, reaxff_file, pristine)
 
         print(f"Criando Simulação: {folder}")
 

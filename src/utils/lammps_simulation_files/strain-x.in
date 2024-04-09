@@ -5,7 +5,7 @@ units           real
 dimension       3
 boundary        p p m
 atom_style      charge
-read_data       pristine_structure.charge
+read_data       NOME.charge
 # ---------------------------------
 # ---------------------------------
 # ---- Campo de Forca -------------

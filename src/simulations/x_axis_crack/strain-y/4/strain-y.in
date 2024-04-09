@@ -11,7 +11,7 @@ read_data       n1_x_axis_crack_structure.charge
 # ---- Campo de Forca -------------
 # ---------------------------------
 pair_style      reax/c NULL 
-pair_coeff      * * CHO2008-kc2-enable.reaxff C
+pair_coeff      * * CHO2008-kc2-enable.reaxff C H
 # ---------------------------------
 # -------------------------------------------------------------------------------------
 # ---- Atribuicao de Variaveis --------------------------------------------------------
@@ -155,7 +155,7 @@ print   '# INICIO DA EQUILIBRACAO DA ESTRUTURA  #'
 print   '########################################'
 print   ' ' 
 # -----------------------------------------------------------------------------
-velocity    all create ${temperatura} 468176369 rot yes
+velocity    all create ${temperatura} 525140920 rot yes
 # -----------------------------------------------------------------------------
 reset_timestep  0
 fix     equilibracao all npt &
