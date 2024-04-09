@@ -27,9 +27,9 @@ def read_strain_file(file):
     return data
 
 
-def write_strain_file(file,strain_data,structure_file,reaxff_file):
+def write_strain_file(file,strain_data,structure_charge_file,reaxff_file):
     random_int = random.randint(100000000, 999999999)
-    read_data = f'read_data       {structure_file}\n'
+    read_data = f'read_data       {structure_charge_file}\n'
     velocity = 'velocity    all create ${temperatura} % rot yes\n' % (str(random_int))
     pair_coeff = f'pair_coeff      * * {reaxff_file} C\n'
     with open(file, 'w') as f:
@@ -41,6 +41,5 @@ def write_strain_file(file,strain_data,structure_file,reaxff_file):
             elif i == 157:
                 f.write(velocity)
             else:
-                f.write(str(line)+'\n')
+                f.write(str(line))
 
-# "Hello, %s. You are %d years old." % (name, age)

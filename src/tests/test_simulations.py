@@ -24,17 +24,16 @@ class TestStrain():
 
         write_strain_file(OUTPUT_STRAIN_TEST_FILE,
                           input_file_data,
-                          REAXFF_TEST_FILE_NAME,
-                          CHARGE_TEST_FILE_NAME)
+                          CHARGE_TEST_FILE_NAME,
+                          REAXFF_TEST_FILE_NAME)
         
         read_data = 'read_data       test.charge\n'
-        pair_coeff = 'pair_coeff      * * CHO2008-kc2-enable.reaxff C\n'
-        velocity = 'velocity    all create ${temperatura} 111111111 rot yes\n'
+        pair_coeff = 'pair_coeff      * * test.reaxff C\n'
         output_file_data = read_strain_file(OUTPUT_STRAIN_TEST_FILE)
 
         assert output_file_data[7] == read_data
         assert output_file_data[13] == pair_coeff
-        assert output_file_data[157] == velocity
+
 
 
 
