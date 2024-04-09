@@ -1,13 +1,20 @@
+import os
 from my_utils import read_strain_file,write_strain_file
 
 STRAIN_FILE_INPUT = 'src/utils/strain-x.in'
 
 strain_data = read_strain_file(STRAIN_FILE_INPUT)
 
-simulations = ['unit_crack','x_axis_crack','y_axis_crack']
-
 def run():
-    pass
+    simulations_folders = ['unit_crack','x_axis_crack','y_axis_crack']
+    path = 'src/simulations'
+    for folder in simulations_folders:
+        os.mkdir(f'src/simulations/{folder}')
+        if 
+        for strain in strain_data:
+            write_strain_file()
+   
+
 # CRIAR LISTA COM O NOME DE TODAS AS ESTRUTURAS
 # FOR LOOP DA ESTRUTURA
     # CRIAR FOLDER PARA A ESTRUTURA = STRUCTURE_FILE
