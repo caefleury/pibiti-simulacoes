@@ -21,7 +21,7 @@ def replicate_cell(atoms, lattice_constants,
 
 def run():
     # Parâmetros
-    unit_cell_file = 'src/simulations/unit_cell.xyz'
+    unit_cell_file = 'src/structures/unit_cell.xyz'
     n_replications_x = 17
     n_replications_y = 21
 
@@ -38,7 +38,7 @@ def run():
         atoms, lattice_constants, n_replications_x, n_replications_y)
 
     # Escreva o arquivo .xyz com a estrutura replicada
-    OUTPUT_STRUCTURE_FILE = 'src/simulations/pristine_structure.xyz'
+    OUTPUT_STRUCTURE_FILE = 'src/structures/pristine_structure.xyz'
 
     write_xyz(OUTPUT_STRUCTURE_FILE, n_replications_x *
               n_replications_y * n_atoms, comment, replicated_atoms)
