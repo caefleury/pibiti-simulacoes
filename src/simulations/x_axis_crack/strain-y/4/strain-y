@@ -1,0 +1,289 @@
+# ---------------------------------
+# ---- Parametros Iniciais --------
+# ---------------------------------
+units           real
+dimension       3
+boundary        p p m
+atom_style      charge
+read_data       n1_x_axis_crack_structure.charge
+# ---------------------------------
+# ---------------------------------
+# ---- Campo de Forca -------------
+# ---------------------------------
+pair_style      reax/c NULL 
+pair_coeff      * * CHO2008-kc2-enable.reaxff C
+# ---------------------------------
+# -------------------------------------------------------------------------------------
+# ---- Atribuicao de Variaveis --------------------------------------------------------
+# -------------------------------------------------------------------------------------
+variable    temperatura                     equal   300     # em Kelvin
+variable    passo_tempo                     equal   0.1     # em femtosegundos
+variable    taxa_strain                     equal   1.0e-6  # em distancia/taxa_tempo
+variable    total_strain_perc               equal   0.5     # percentual de strain
+variable    espessura                       equal   3.35    # em angstrom
+variable    tempo_total_equilibracao        equal   50      # em picosegundos
+variable    tempo_total_termalizacao        equal   50      # em picosegundo
+variable    tempo_impressao_vtermo          equal   100     # em femtosegundos
+variable    tempo_impressao_vstrain         equal   100     # em femtosegundos
+variable    tempo_impressao_energias_termo  equal   100     # em femtosegundos
+variable    tempo_impressao_energias_reax   equal   100     # em femtosegundos
+variable    tempo_impressao_video_equi      equal   500     # em femtosegundos
+variable    tempo_impressao_video_term      equal   500     # em femtosegundos
+variable    tempo_impressao_video_strain    equal   500     # em femtosegundos
+variable    tempo_escrita_restart           equal   1       # em picosegundos
+# -------------------------------------------------------------------------------------
+
+
+
+# -----------------------------------------------------------------------------
+# ---- Variaveis Calculadas (Valores Fixos) -----------------------------------
+# -----------------------------------------------------------------------------
+compute     reax all pair reax/c  
+compute     ke_atomo all  ke/atom
+compute     pe_atomo all  pe/atom
+# -----------------------------------------------------------------------------
+variable    etotal_atomo                    equal   (c_ke_atomo+c_pe_atomo)
+variable    KcalMol_para_eV                 equal   0.04336
+variable    Atm_para_GPa                    equal   0.000101325
+variable    kb                              equal   &
+            8.6173303e-5  #constante de Boltzmann em eV/K
+variable    temperatura_atomo               atom    &
+            c_ke_atomo*${KcalMol_para_eV}/${kb}/1.5
+variable    amortecimento_temperatura       equal   &
+            100*${passo_tempo}
+variable    amortecimento_pressao           equal   1000*${passo_tempo}
+variable    total_passos_equilibracao       equal   &
+            1000*${tempo_total_equilibracao}/${passo_tempo}
+variable    total_passos_termalizacao       equal   &
+            1000*${tempo_total_termalizacao}/${passo_tempo}
+variable    total_passos_strain             equal   &
+            ${total_strain_perc}/(${passo_tempo}*${taxa_strain})
+variable    freq_passos_restart             equal   &
+            1000*${tempo_escrita_restart}/${passo_tempo}
+variable    freq_impressao_vtermo           equal   &
+            ${tempo_impressao_vtermo}/${passo_tempo}
+variable    freq_impressao_vstrain          equal   &
+            ${tempo_impressao_vstrain}/${passo_tempo}
+variable    freq_impressao_energias_termo   equal   &
+            ${tempo_impressao_energias_termo}/${passo_tempo}
+variable    freq_impressao_energias_reax    equal   &
+            ${tempo_impressao_energias_reax}/${passo_tempo}
+variable    freq_impressao_video_equi        equal   &
+            ${tempo_impressao_video_equi}/${passo_tempo} 
+variable    freq_impressao_video_term        equal   &
+            ${tempo_impressao_video_term}/${passo_tempo}
+variable    freq_impressao_video_strain        equal   &
+            ${tempo_impressao_video_strain}/${passo_tempo}
+# -----------------------------------------------------------------------------
+variable    eb      equal c_reax[1]  #= bond energy 
+variable    ea      equal c_reax[2]  #= atom energy 
+variable    elp     equal c_reax[3]  #= lone-pair energy 
+variable    emol    equal c_reax[4]  #= molecule energy (always 0.0) 
+variable    ev      equal c_reax[5]  #= valence angle energy 
+variable    epen    equal c_reax[6]  #= double-bond valence angle penalty 
+variable    ecoa    equal c_reax[7]  #= valence angle conjugation energy 
+variable    ehb     equal c_reax[8]  #= hydrogen bond energy 
+variable    et      equal c_reax[9]  #= torsion energy 
+variable    eco     equal c_reax[10] #= conjugation energy 
+variable    ew      equal c_reax[11] #= van der Waals energy 
+variable    ep      equal c_reax[12] #= Coulomb energy 
+variable    efi     equal c_reax[13] #= electric field energy (always 0.0) 
+variable    eqeq    equal c_reax[14] #= charge equilibration energy 
+# -----------------------------------------------------------------------------
+variable    energia_ligada      equal   c_reax[1]+c_reax[3]+c_reax[5]&
++c_reax[6]+c_reax[7]+c_reax[8]+c_reax[9]+c_reax[10]
+variable    energia_nao_ligada  equal   c_reax[11]+c_reax[12]
+# -----------------------------------------------------------------------------
+variable    saida_etotal    equal etotal 
+variable    saida_time      equal time 
+variable    saida_ke        equal ke 
+variable    saida_pe        equal pe 
+variable    saida_temp      equal temp 
+variable    saida_step      equal step 
+# -----------------------------------------------------------------------------
+variable    saida_eb    equal v_eb   
+variable    saida_ea    equal v_ea   
+variable    saida_elp   equal v_elp  
+variable    saida_emol  equal v_emol 
+variable    saida_ev    equal v_ev   
+variable    saida_epen  equal v_epen 
+variable    saida_ecoa  equal v_ecoa 
+variable    saida_ehb   equal v_ehb  
+variable    saida_et    equal v_et   
+variable    saida_eco   equal v_eco  
+variable    saida_ew    equal v_ew   
+variable    saida_ep    equal v_ep  
+variable    saida_efi   equal v_efi   
+variable    saida_eqeq  equal v_eqeq     
+# -----------------------------------------------------------------------------
+variable    saida_energia_ligada        equal v_energia_ligada
+variable    saida_energia_nao_ligada    equal v_energia_nao_ligada
+# -----------------------------------------------------------------------------
+
+
+
+# -----------------------------------------------------------------------------
+# ---- Parametros da Simulacao ------------------------------------------------
+# -----------------------------------------------------------------------------
+reset_timestep  0
+timestep        ${passo_tempo}
+neigh_modify    delay 0 
+fix             1 all qeq/reax 1 0.0 10.0 1.0e-6 reax/c
+thermo          ${freq_impressao_vtermo}
+thermo_style    custom step time temp press pe ke etotal 
+thermo_modify   lost warn flush yes
+# -----------------------------------------------------------------------------
+
+
+
+# -----------------------------------------------------------------------------
+# ---- Minimizacao da Estrutura -----------------------------------------------
+# -----------------------------------------------------------------------------
+#minimize       1.0e-5 1.0e-5 100000 100000
+#minimize       1.0e-5 1.0e-5 100000 100000
+#minimize       1.0e-5 1.0e-5 100000 100000
+#minimize       1.0e-5 1.0e-5 100000 100000
+#minimize       1.0e-5 1.0e-5 100000 100000
+# -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# ---- Equilibracao -----------------------------------------------------------
+# -----------------------------------------------------------------------------
+print   ' ' 
+print   '########################################' 
+print   '# INICIO DA EQUILIBRACAO DA ESTRUTURA  #' 
+print   '########################################'
+print   ' ' 
+# -----------------------------------------------------------------------------
+velocity    all create ${temperatura} 597477619 rot yes
+# -----------------------------------------------------------------------------
+reset_timestep  0
+fix     equilibracao all npt &
+        temp ${temperatura} ${temperatura} ${amortecimento_temperatura} &
+        x 0.0 0.0 ${amortecimento_pressao} &
+        y 0.0 0.0 ${amortecimento_pressao} 
+dump    video_equilibracao all             &
+        custom ${freq_impressao_video_equi} &
+        equilibracao.lammpstrj id type x y z 
+# -----------------------------------------------------------------------------
+run     ${total_passos_equilibracao}
+# -----------------------------------------------------------------------------
+unfix   equilibracao
+undump  video_equilibracao 
+# -----------------------------------------------------------------------------    
+
+
+
+# -----------------------------------------------------------------------------
+# ---- Termalizacao -----------------------------------------------------------
+# -----------------------------------------------------------------------------
+print   ' ' 
+print   '########################################' 
+print   '# INICIO DA TERMALIZACAO DA ESTRUTURA  #' 
+print   '########################################'
+print   ' ' 
+# -----------------------------------------------------------------------------
+fix     termalizacao all nvt &
+        temp ${temperatura} ${temperatura} ${amortecimento_temperatura} 
+dump    video_termalizacao all              &
+        custom ${freq_impressao_video_term}  &
+        termalizacao.lammpstrj id type x y z v_temperatura_atomo 
+fix     energias_termo_term all print ${freq_impressao_energias_termo} &
+        "${saida_step} ${saida_time} ${saida_temp} ${saida_ke} &
+        ${saida_pe} ${saida_etotal}" file energias_termo_term.dat screen no
+fix     energias_reax_term all &
+        print ${freq_impressao_energias_reax} "${saida_step} ${saida_time} &
+        ${saida_temp} ${saida_eb} ${saida_ea} ${saida_elp} ${saida_emol} &
+        ${saida_ev} ${saida_epen} ${saida_ecoa} ${saida_ehb} ${saida_et} &
+        ${saida_eco} ${saida_ew} ${saida_ep} ${saida_efi} ${saida_eqeq} &
+        ${saida_energia_ligada} ${saida_energia_nao_ligada}" &
+        file energias_reax_term.dat screen no
+# -----------------------------------------------------------------------------
+run     ${total_passos_termalizacao}
+# -----------------------------------------------------------------------------
+unfix   energias_reax_term
+unfix   energias_termo_term
+unfix   termalizacao
+undump  video_termalizacao   
+# -----------------------------------------------------------------------------     
+restart     ${freq_passos_restart} restart.data.01 restart.data.02 
+# -----------------------------------------------------------------------------   
+
+
+
+# -----------------------------------------------------------------------------
+# ---- Calculos de Strain -----------------------------------------------------
+# -----------------------------------------------------------------------------
+compute     str all stress/atom NULL
+compute     total_strain_xx all reduce sum c_str[1]
+compute     total_strain_yy all reduce sum c_str[2]
+compute     total_strain_zz all reduce sum c_str[3]
+variable    strain              equal   ${taxa_strain}*step*${passo_tempo}
+variable    tamanho_total_x     equal   (bound(all,xmax)-bound(all,xmin)) 
+variable    tamanho_total_y     equal   (bound(all,ymax)-bound(all,ymin))
+variable    area_estrutura      equal   ${tamanho_total_x}*${tamanho_total_y}
+variable    sxx                 equal   &
+            c_total_strain_xx*${Atm_para_GPa}/(${espessura}*${area_estrutura})
+variable    syy                 equal   &
+            c_total_strain_yy*${Atm_para_GPa}/(${espessura}*${area_estrutura})
+variable    szz                 equal   &
+            c_total_strain_zz*${Atm_para_GPa}/(${espessura}*${area_estrutura})
+variable    vonmises2       atom &
+(c_str[1]-c_str[2])^2+&
+(c_str[2]-c_str[3])^2+&
+(c_str[1]-c_str[3])^2+&
+6*(c_str[4]^2+c_str[5]^2+c_str[6]^2)
+variable    vonmises        atom sqrt(0.5*v_vonmises2)
+variable    hidrostatico    atom (c_str[1]+c_str[2]+c_str[3])/3.0
+# -----------------------------------------------------------------------------  
+
+
+
+# -----------------------------------------------------------------------------
+# ---- Strain -----------------------------------------------------------------
+# -----------------------------------------------------------------------------
+print   ' ' 
+print   '##################################' 
+print   '# INICIO DE STRAIN DA ESTRUTURA  #' 
+print   '##################################'
+print   ' ' 
+# -----------------------------------------------------------------------------
+reset_timestep 0
+fix     dados_strain all print ${freq_impressao_vstrain} &
+        '${strain} ${sxx} ${syy} ${szz}' &
+        file stress_strain.dat screen no
+dump    video_strain all custom ${freq_impressao_video_strain} &
+        strain.lammpstrj id type x y z v_vonmises v_hidrostatico
+fix     npt_estrutura all npt temp ${temperatura} ${temperatura} &
+        ${amortecimento_temperatura} x 0.0 0.0 ${amortecimento_pressao}
+fix     energias_termo_strain all print ${freq_impressao_energias_termo} &
+        "${saida_step} ${saida_time} ${saida_temp} ${saida_ke} &
+        ${saida_pe} ${saida_etotal}" file energias_termo_strain.dat screen no
+fix     energias_reax_strain all &
+        print ${freq_impressao_energias_reax} "${saida_step} ${saida_time} &
+        ${saida_temp} ${saida_eb} ${saida_ea} ${saida_elp} ${saida_emol} &
+        ${saida_ev} ${saida_epen} ${saida_ecoa} ${saida_ehb} ${saida_et} &
+        ${saida_eco} ${saida_ew} ${saida_ep} ${saida_efi} ${saida_eqeq} &
+        ${saida_energia_ligada} ${saida_energia_nao_ligada}" &
+        file energias_reax_strain.dat screen no
+fix     strain all deform 1 y erate ${taxa_strain} remap x
+# -----------------------------------------------------------------------------
+run     ${total_passos_strain}
+# -----------------------------------------------------------------------------
+unfix   strain
+unfix   energias_reax_strain
+unfix   energias_termo_strain
+unfix   npt_estrutura
+undump  video_strain
+unfix   dados_strain
+# -----------------------------------------------------------------------------  
+
+
+
+# -----------------------------------------------------------------------------
+print   ' ' 
+print   '########################################'
+print   '#         SIMULACAO FINALIZADA         #' 
+print   '########################################'
+print   ' ' 
+# -----------------------------------------------------------------------------

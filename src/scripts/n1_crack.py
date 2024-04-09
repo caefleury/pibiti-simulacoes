@@ -39,7 +39,7 @@ def replicate_n1_crack(atoms, lattice_constants, n_replications_x,
 
 def run(crack_direction):
     # Parâmetros
-    INPUT_UNIT_CELL_FILE = 'src/simulations/unit_cell.xyz'
+    INPUT_UNIT_CELL_FILE = 'src/xyz_structures/unit_cell.xyz'
 
     n_replications_x = 17
     n_replications_y = 21

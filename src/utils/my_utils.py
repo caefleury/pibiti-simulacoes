@@ -35,8 +35,8 @@ def write_strain_file(file, strain_data_file, structure_charge_file, reaxff_file
     strain_data = read_strain_file(strain_data_file)
     random_int = random.randint(100000000, 999999999)
     read_data = f'read_data       {structure_charge_file}\n'
-    velocity = 'velocity    all create ${temperatura} % rot yes\n' % (
-        str(random_int))
+    velocity = "velocity    all create ${temperatura} %d rot yes\n" % (
+        random_int)
     pair_coeff = f'pair_coeff      * * {reaxff_file} C\n'
     with open(file, 'w') as f:
         for i, line in enumerate(strain_data):
@@ -50,10 +50,8 @@ def write_strain_file(file, strain_data_file, structure_charge_file, reaxff_file
                 f.write(str(line))
 
 
-def write_strain_folders(folder, strain_data, structure_charge_file, reaxff_file):
+def write_strain_x_folders(folder, x_strain_data, structure_charge_file, reaxff_file):
     reaxff_kc2_file = 'src/utils/lammps_simulation_files/CHO2008-kc2-enable.reaxff'
-    # folder = pasta com da simulação
-    # Criar as pastas do strain-x
     for i in range(1, 6):
         current_folder = f'{folder}/strain-x/{i}'
         os.makedirs(current_folder, exist_ok=True)
@@ -61,12 +59,16 @@ def write_strain_folders(folder, strain_data, structure_charge_file, reaxff_file
         shutil.copy('src/charge_structures/' +
                     structure_charge_file, current_folder)
         write_strain_file(current_folder + '/strain-x',
-                          strain_data, structure_charge_file, reaxff_file)
+                          x_strain_data, structure_charge_file, reaxff_file)
 
-    # Criar as pastas do strain-y
+
+def write_strain_y_folders(folder, y_strain_data, structure_charge_file, reaxff_file):
+    reaxff_kc2_file = 'src/utils/lammps_simulation_files/CHO2008-kc2-enable.reaxff'
     for i in range(1, 6):
         current_folder = f'{folder}/strain-y/{i}'
         os.makedirs(current_folder, exist_ok=True)
         shutil.copy(reaxff_kc2_file, current_folder)
+        shutil.copy('src/charge_structures/' +
+                    structure_charge_file, current_folder)
         write_strain_file(current_folder + '/strain-y',
-                          strain_data, structure_charge_file, reaxff_file)
+                          y_strain_data, structure_charge_file, reaxff_file)
