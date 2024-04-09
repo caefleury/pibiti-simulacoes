@@ -4,7 +4,7 @@ from my_utils import read_strain_file, write_strain_x_folders, write_strain_y_fo
 
 def run():
     simulations_folders = ['pristine', 'center_crack',
-                           'x_axis_crack']
+                           'x_axis_crack','y_axis_crack']
     path = 'src/simulations/'
     for folder in simulations_folders:
         os.makedirs(f'src/simulations/{folder}', exist_ok=True)
@@ -21,6 +21,8 @@ def run():
             structure_charge_file = 'center_crack_structure.charge'
         elif folder == 'x_axis_crack':
             structure_charge_file = 'n1_x_axis_crack_structure.charge'
+        elif folder == 'y_axis_crack':
+            structure_charge_file = 'n1_y_axis_crack_structure.charge'
 
         folder = f'src/simulations/{folder}'
         write_strain_x_folders(folder, strain_x_data,
