@@ -1,6 +1,6 @@
 import pytest
 import os.path
-from utils.my_utils import read_strain_file,write_strain_file,write_strain_folders
+from utils.my_utils import read_strain_file, write_strain_file, write_strain_folders
 
 
 class TestStrain():
@@ -16,7 +16,7 @@ class TestStrain():
 
     def test_write_file(self):
         INPUT_TEST_FILE = 'src/utils/lammps_simulation_files/strain-x.in'
-        
+
         CHARGE_TEST_FILE_NAME = 'test.charge'
         REAXFF_TEST_FILE_NAME = 'test.reaxff'
         OUTPUT_STRAIN_TEST_FILE = 'src/tests/test_write.in'
@@ -26,7 +26,7 @@ class TestStrain():
                           input_file_data,
                           CHARGE_TEST_FILE_NAME,
                           REAXFF_TEST_FILE_NAME)
-        
+
         read_data = 'read_data       test.charge\n'
         pair_coeff = 'pair_coeff      * * test.reaxff C\n'
         output_file_data = read_strain_file(OUTPUT_STRAIN_TEST_FILE)
@@ -35,23 +35,17 @@ class TestStrain():
         assert output_file_data[13] == pair_coeff
 
     def test_write_folders(self):
-        simulations_folders = ['center_crack','x_axis_crack','y_axis_crack']
-        folder = 'src/tests/'+ simulations_folders[0]
+        simulations_folders = ['center_crack', 'x_axis_crack', 'y_axis_crack']
+        folder = 'src/tests/' + simulations_folders[0]
         strain_data = 'src/utils/lammps_simulation_files/strain-x.in'
         structure_charge_file = 'center_crack_structure.charge'
         reaxff_file = 'CHO2008-kc2-enable.reaxff'
 
-        write_strain_folders(folder,strain_data,structure_charge_file,reaxff_file)
-        
+        write_strain_folders(folder, strain_data,
+                             structure_charge_file, reaxff_file)
+
         assert os.path.exists(folder + '/strain-x/1/CHO2008-kc2-enable.reaxff')
         assert os.path.exists(folder + '/strain-x/2/CHO2008-kc2-enable.reaxff')
         assert os.path.exists(folder + '/strain-x/3/CHO2008-kc2-enable.reaxff')
         assert os.path.exists(folder + '/strain-x/4/CHO2008-kc2-enable.reaxff')
         assert os.path.exists(folder + '/strain-x/5/CHO2008-kc2-enable.reaxff')
-
-
-
-
-
-
-

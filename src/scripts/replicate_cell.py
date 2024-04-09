@@ -39,7 +39,6 @@ def run():
         atoms, lattice_constants, n_replications_x, n_replications_y)
 
     # Escreva o arquivo .xyz com a estrutura replicada
-    
 
     write_xyz(OUTPUT_STRUCTURE_FILE, n_replications_x *
               n_replications_y * n_atoms, comment, replicated_atoms)

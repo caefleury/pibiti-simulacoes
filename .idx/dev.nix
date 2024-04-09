@@ -6,6 +6,8 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.python311Packages.pytest
+    pkgs.python311Packages.autopep8
+    pkgs.python311Packages.flake8
   ];
 
   # Sets environment variables in the workspace
