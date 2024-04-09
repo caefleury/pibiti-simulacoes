@@ -1,0 +1,3 @@
+src/utiread_data       center_crack_structure.charge
+s/lampair_coeff      * * CHO2008-kc2-enable.reaxff C
+ps_simulation_files/strain-x.in

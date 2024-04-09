@@ -67,8 +67,8 @@ def replicate_n2_crack(atoms, lattice_constants, n_replications_x,
 
 def run(crack_direction):
     # Parâmetros
-    INPUT_UNIT_CELL_FILE = 'src/structures/unit_cell.xyz'
-    OUTPUT_STRUCTURE_FILE = 'src/structures/n2_crack_structure.xyz'
+    INPUT_UNIT_CELL_FILE = 'src/xyz_structures/unit_cell.xyz'
+    OUTPUT_STRUCTURE_FILE = 'src/xyz_structures/n2_crack_structure.xyz'
     n_replications_x = 17
     n_replications_y = 21
     crack_size = 9

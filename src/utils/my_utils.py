@@ -1,4 +1,6 @@
 import random
+import os
+import shutil
 
 def read_xyz(file):
     with open(file, 'r') as f:
@@ -43,3 +45,22 @@ def write_strain_file(file,strain_data,structure_charge_file,reaxff_file):
             else:
                 f.write(str(line))
 
+
+def write_strain_folders(folder,strain_data,structure_charge_file,reaxff_file):
+    reaxff_kc2_file = 'src/utils/lammps_simulation_files/CHO2008-kc2-enable.reaxff'
+    # folder = pasta com da simulação
+    # Criar as pastas do strain-x
+    for i in range(1,6):
+        current_folder = f'{folder}/strain-x/{i}'
+        os.makedirs(current_folder, exist_ok=True)
+        shutil.copy(reaxff_kc2_file, current_folder)
+        write_strain_file(current_folder + '/strain-x',strain_data,structure_charge_file,reaxff_file)
+
+    # Criar as pastas do strain-y
+    for i in range(1,6):
+        current_folder = f'{folder}/strain-y/{i}'
+        os.makedirs(current_folder, exist_ok=True)
+        shutil.copy(reaxff_kc2_file, current_folder)
+        write_strain_file(current_folder+ '/strain-y',strain_data,structure_charge_file,reaxff_file)
+   
+    
