@@ -1,4 +1,7 @@
 import random
+import os
+import shutil
+
 
 def read_xyz(file):
     with open(file, 'r') as f:
@@ -21,19 +24,22 @@ def write_xyz(file, n_atoms, comment, atoms):
             z = format(position[2], '.16f')
             f.write('{} {} {} {}\n'.format(atom, x, y, z))
 
+
 def read_strain_file(file):
     with open(file, 'r') as f:
         data = f.readlines()
     return data
 
 
-def write_strain_file(file,strain_data,structure_file,reaxff_file):
+def write_strain_file(file, strain_data_file, structure_charge_file, reaxff_file):
+    strain_data = read_strain_file(strain_data_file)
     random_int = random.randint(100000000, 999999999)
-    read_data = f'read_data       {structure_file}\n'
-    velocity = 'velocity    all create ${temperatura} % rot yes\n' % (str(random_int))
+    read_data = f'read_data       {structure_charge_file}\n'
+    velocity = "velocity    all create ${temperatura} %d rot yes\n" % (
+        random_int)
     pair_coeff = f'pair_coeff      * * {reaxff_file} C\n'
     with open(file, 'w') as f:
-        for i,line in enumerate(strain_data):
+        for i, line in enumerate(strain_data):
             if i == 7:
                 f.write(read_data)
             elif i == 13:
@@ -41,6 +47,28 @@ def write_strain_file(file,strain_data,structure_file,reaxff_file):
             elif i == 157:
                 f.write(velocity)
             else:
-                f.write(str(line)+'\n')
+                f.write(str(line))
 
-# "Hello, %s. You are %d years old." % (name, age)
+
+def write_strain_x_folders(folder, x_strain_data, structure_charge_file, reaxff_file):
+    reaxff_kc2_file = 'src/utils/lammps_simulation_files/CHO2008-kc2-enable.reaxff'
+    for i in range(1, 6):
+        current_folder = f'{folder}/strain-x/{i}'
+        os.makedirs(current_folder, exist_ok=True)
+        shutil.copy(reaxff_kc2_file, current_folder)
+        shutil.copy('src/charge_structures/' +
+                    structure_charge_file, current_folder)
+        write_strain_file(current_folder + '/strain-x',
+                          x_strain_data, structure_charge_file, reaxff_file)
+
+
+def write_strain_y_folders(folder, y_strain_data, structure_charge_file, reaxff_file):
+    reaxff_kc2_file = 'src/utils/lammps_simulation_files/CHO2008-kc2-enable.reaxff'
+    for i in range(1, 6):
+        current_folder = f'{folder}/strain-y/{i}'
+        os.makedirs(current_folder, exist_ok=True)
+        shutil.copy(reaxff_kc2_file, current_folder)
+        shutil.copy('src/charge_structures/' +
+                    structure_charge_file, current_folder)
+        write_strain_file(current_folder + '/strain-y',
+                          y_strain_data, structure_charge_file, reaxff_file)

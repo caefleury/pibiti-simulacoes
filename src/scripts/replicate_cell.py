@@ -21,12 +21,13 @@ def replicate_cell(atoms, lattice_constants,
 
 def run():
     # Parâmetros
-    unit_cell_file = 'src/structures/unit_cell.xyz'
+    INPUT_UNIT_CELL_FILE = 'src/xyz_structures/unit_cell.xyz'
+    OUTPUT_STRUCTURE_FILE = 'src/xyz_structures/pristine_structure.xyz'
     n_replications_x = 17
     n_replications_y = 21
 
     # Ler a célula unitária
-    n_atoms, comment, atoms = read_xyz(unit_cell_file)
+    n_atoms, comment, atoms = read_xyz(INPUT_UNIT_CELL_FILE)
 
     # Vetores de rede (lattice constants)
     a = float(comment.split()[2])
@@ -38,7 +39,6 @@ def run():
         atoms, lattice_constants, n_replications_x, n_replications_y)
 
     # Escreva o arquivo .xyz com a estrutura replicada
-    OUTPUT_STRUCTURE_FILE = 'src/structures/pristine_structure.xyz'
 
     write_xyz(OUTPUT_STRUCTURE_FILE, n_replications_x *
               n_replications_y * n_atoms, comment, replicated_atoms)

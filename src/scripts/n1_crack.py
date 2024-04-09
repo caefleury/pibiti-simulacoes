@@ -39,7 +39,7 @@ def replicate_n1_crack(atoms, lattice_constants, n_replications_x,
 
 def run(crack_direction):
     # Parâmetros
-    INPUT_UNIT_CELL_FILE = 'src/simulations/unit_cell.xyz'
+    INPUT_UNIT_CELL_FILE = 'src/xyz_structures/unit_cell.xyz'
 
     n_replications_x = 17
     n_replications_y = 21
@@ -63,11 +63,11 @@ def run(crack_direction):
 
     # Escrever o arquivo .xyz com a estrutura replicada
     if crack_size == 1:
-        OUTPUT_STRUCTURE_FILE = 'src/structures/center_crack_structure.xyz'
+        OUTPUT_STRUCTURE_FILE = 'src/xyz_structures/center_crack_structure.xyz'
     elif crack_direction == 'x':
-        OUTPUT_STRUCTURE_FILE = 'src/structures/n1_x_crack_structure.xyz'
+        OUTPUT_STRUCTURE_FILE = 'src/xyz_structures/n1_x_crack_structure.xyz'
     else:
-        OUTPUT_STRUCTURE_FILE = 'src/structures/n1_y_crack_structure.xyz'
+        OUTPUT_STRUCTURE_FILE = 'src/xyz_structures/n1_y_crack_structure.xyz'
 
     write_xyz(OUTPUT_STRUCTURE_FILE, n_atoms_modified, comment, atoms_modified)
 

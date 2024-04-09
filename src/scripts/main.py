@@ -6,7 +6,7 @@ import replicate_cell
 import strains
 if __name__ == "__main__":
     print()
-    print("============================== Gerando Estruturas ==============================\n")
+    print("============================== Generating Structures ==============================\n")
     n1_crack.run('x')
     n1_crack.run('y')
     n1_edge_crack.run()
@@ -15,13 +15,12 @@ if __name__ == "__main__":
     print()
     print(
         "\033[1;32m" +
-        "============================== Estruturas replicadas ===========================" +
+        "============================== Structures Generated ===========================" +
         "\033[0m")
-    
-    print("============================== Gerando Simulações ==============================\n")
+
+    print("============================== Generating LAMPPS Simulations ==============================\n")
     strains.run()
     print(
         "\033[1;32m" +
-        "============================== Simulações Geradas ===========================" +
+        "============================== Simulations Generated ===========================" +
         "\033[0m")
-
