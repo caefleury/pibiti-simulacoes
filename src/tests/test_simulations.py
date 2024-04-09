@@ -1,12 +1,12 @@
 import pytest
 import os.path
-from utils.my_utils import read_strain_file, write_strain_file, write_strain_x_folders, write_strain_y_folders
+from utils.my_utils import return_file_data, write_strain_file, write_strain_x_folders, write_strain_y_folders
 
 
 class TestStrain():
     def test_read(self):
         INPUT_TEST_FILE = 'src/utils/lammps_simulation_files/strain-x.in'
-        file_data = read_strain_file(INPUT_TEST_FILE)
+        file_data = return_file_data(INPUT_TEST_FILE)
         read_data = 'read_data       pristine_structure.charge\n'
         pair_coeff = 'pair_coeff      * * CHO2008-kc2-enable.reaxff C\n'
         velocity = 'velocity    all create ${temperatura} 111111111 rot yes\n'
@@ -28,7 +28,7 @@ class TestStrain():
 
         read_data = 'read_data       test.charge\n'
         pair_coeff = 'pair_coeff      * * test.reaxff C\n'
-        output_file_data = read_strain_file(OUTPUT_STRAIN_TEST_FILE)
+        output_file_data = return_file_data(OUTPUT_STRAIN_TEST_FILE)
 
         assert output_file_data[7] == read_data
         assert output_file_data[13] == pair_coeff
