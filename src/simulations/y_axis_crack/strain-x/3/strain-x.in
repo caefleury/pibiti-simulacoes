@@ -5,13 +5,13 @@ units           real
 dimension       3
 boundary        p p m
 atom_style      charge
-read_data       test.charge
+read_data       n1_y_axis_crack_structure.charge
 # ---------------------------------
 # ---------------------------------
 # ---- Campo de Forca -------------
 # ---------------------------------
 pair_style      reax/c NULL 
-pair_coeff      * * test.reaxff C
+pair_coeff      * * CHO2008-kc2-enable.reaxff C H
 # ---------------------------------
 # -------------------------------------------------------------------------------------
 # ---- Atribuicao de Variaveis --------------------------------------------------------
@@ -155,7 +155,7 @@ print   '# INICIO DA EQUILIBRACAO DA ESTRUTURA  #'
 print   '########################################'
 print   ' ' 
 # -----------------------------------------------------------------------------
-velocity    all create ${temperatura} 559387013 rot yes
+velocity    all create ${temperatura} 650912233 rot yes
 # -----------------------------------------------------------------------------
 reset_timestep  0
 fix     equilibracao all npt &

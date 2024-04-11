@@ -5,13 +5,13 @@ units           real
 dimension       3
 boundary        p p m
 atom_style      charge
-read_data       test.charge
+read_data       n1_x_axis_crack_structure.charge
 # ---------------------------------
 # ---------------------------------
 # ---- Campo de Forca -------------
 # ---------------------------------
 pair_style      reax/c NULL 
-pair_coeff      * * test.reaxff C
+pair_coeff      * * CHO2008-kc2-enable.reaxff C H
 # ---------------------------------
 # -------------------------------------------------------------------------------------
 # ---- Atribuicao de Variaveis --------------------------------------------------------
@@ -155,7 +155,7 @@ print   '# INICIO DA EQUILIBRACAO DA ESTRUTURA  #'
 print   '########################################'
 print   ' ' 
 # -----------------------------------------------------------------------------
-velocity    all create ${temperatura} 559387013 rot yes
+velocity    all create ${temperatura} 308152942 rot yes
 # -----------------------------------------------------------------------------
 reset_timestep  0
 fix     equilibracao all npt &
@@ -255,7 +255,7 @@ fix     dados_strain all print ${freq_impressao_vstrain} &
 dump    video_strain all custom ${freq_impressao_video_strain} &
         strain.lammpstrj id type x y z v_vonmises v_hidrostatico
 fix     npt_estrutura all npt temp ${temperatura} ${temperatura} &
-        ${amortecimento_temperatura} y 0.0 0.0 ${amortecimento_pressao}
+        ${amortecimento_temperatura} x 0.0 0.0 ${amortecimento_pressao}
 fix     energias_termo_strain all print ${freq_impressao_energias_termo} &
         "${saida_step} ${saida_time} ${saida_temp} ${saida_ke} &
         ${saida_pe} ${saida_etotal}" file energias_termo_strain.dat screen no
@@ -266,7 +266,7 @@ fix     energias_reax_strain all &
         ${saida_eco} ${saida_ew} ${saida_ep} ${saida_efi} ${saida_eqeq} &
         ${saida_energia_ligada} ${saida_energia_nao_ligada}" &
         file energias_reax_strain.dat screen no
-fix     strain all deform 1 x erate ${taxa_strain} remap x
+fix     strain all deform 1 y erate ${taxa_strain} remap x
 # -----------------------------------------------------------------------------
 run     ${total_passos_strain}
 # -----------------------------------------------------------------------------

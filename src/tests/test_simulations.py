@@ -1,13 +1,13 @@
 import pytest
 import os.path
-from utils.my_utils import read_strain_file, write_strain_file, write_strain_x_folders, write_strain_y_folders
+from utils.my_utils import return_file_data, write_strain_file, write_strain_x_folders, write_strain_y_folders
 
 
 class TestStrain():
     def test_read(self):
         INPUT_TEST_FILE = 'src/utils/lammps_simulation_files/strain-x.in'
-        file_data = read_strain_file(INPUT_TEST_FILE)
-        read_data = 'read_data       pristine_structure.charge\n'
+        file_data = return_file_data(INPUT_TEST_FILE)
+        read_data = 'read_data       NOME.charge\n'
         pair_coeff = 'pair_coeff      * * CHO2008-kc2-enable.reaxff C\n'
         velocity = 'velocity    all create ${temperatura} 111111111 rot yes\n'
         assert file_data[7] == read_data
@@ -24,11 +24,12 @@ class TestStrain():
         write_strain_file(OUTPUT_STRAIN_TEST_FILE,
                           INPUT_TEST_FILE,
                           CHARGE_TEST_FILE_NAME,
-                          REAXFF_TEST_FILE_NAME)
+                          REAXFF_TEST_FILE_NAME,
+                          pristine=True)
 
         read_data = 'read_data       test.charge\n'
         pair_coeff = 'pair_coeff      * * test.reaxff C\n'
-        output_file_data = read_strain_file(OUTPUT_STRAIN_TEST_FILE)
+        output_file_data = return_file_data(OUTPUT_STRAIN_TEST_FILE)
 
         assert output_file_data[7] == read_data
         assert output_file_data[13] == pair_coeff
@@ -42,7 +43,7 @@ class TestStrain():
         reaxff_file = 'CHO2008-kc2-enable.reaxff'
 
         write_strain_x_folders(folder, strain_data,
-                               structure_charge_file, reaxff_file)
+                               structure_charge_file, reaxff_file, pristine=True)
 
         assert os.path.exists(folder + '/strain-x/1/CHO2008-kc2-enable.reaxff')
         assert os.path.exists(folder + '/strain-x/2/CHO2008-kc2-enable.reaxff')
@@ -70,7 +71,7 @@ class TestStrain():
         reaxff_file = 'CHO2008-kc2-enable.reaxff'
 
         write_strain_y_folders(folder, strain_data,
-                               structure_charge_file, reaxff_file)
+                               structure_charge_file, reaxff_file, pristine=True)
 
         assert os.path.exists(folder + '/strain-y/1/CHO2008-kc2-enable.reaxff')
         assert os.path.exists(folder + '/strain-y/2/CHO2008-kc2-enable.reaxff')
