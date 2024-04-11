@@ -37,12 +37,9 @@ def replicate_n1_crack(atoms, lattice_constants, n_replications_x,
     return [len(replicated_atoms), replicated_atoms]
 
 
-def run(crack_direction):
+def run(replications_x, replications_y, crack_direction):
     # Parâmetros
     INPUT_UNIT_CELL_FILE = 'src/xyz_structures/unit_cell.xyz'
-
-    n_replications_x = 17
-    n_replications_y = 21
     crack_size = 7
 
     # Ler a célula unitária
@@ -56,7 +53,7 @@ def run(crack_direction):
     # Replicar a célula unitária
 
     replicated_atoms = replicate_n1_crack(
-        atoms, lattice_constants, n_replications_x, n_replications_y, crack_size, crack_direction)
+        atoms, lattice_constants, replications_x, replications_y, crack_size, crack_direction)
 
     n_atoms_modified = replicated_atoms[0]
     atoms_modified = replicated_atoms[1]

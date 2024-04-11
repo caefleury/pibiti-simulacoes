@@ -35,10 +35,10 @@ def run():
             write_melting_seeds(folder, melting_data,
                                 structure_charge_file, reaxff_file)
         write_strain_x_folders(folder, strain_x_data,
-                                structure_charge_file, reaxff_file, pristine)
+                               structure_charge_file, reaxff_file, pristine)
 
         write_strain_y_folders(folder, strain_y_data,
-                                structure_charge_file, reaxff_file, pristine)
+                               structure_charge_file, reaxff_file, pristine)
 
         print(f"Criando Simulação: {folder}")
 

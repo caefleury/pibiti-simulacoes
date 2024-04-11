@@ -28,12 +28,10 @@ def replicate_edge_crack(atoms, lattice_constants,
     return [len(replicated_atoms), replicated_atoms]
 
 
-def run():
+def run(replications_x, replications_y):
     # Parâmetros
     INPUT_UNIT_CELL_FILE = 'src/xyz_structures/unit_cell.xyz'
     OUTPUT_STRUCTURE_FILE = 'src/xyz_structures/n1_edge_crack_structure.xyz'
-    n_replications_x = 17
-    n_replications_y = 21
     crack_size = 9
 
     # Ler a célula unitária
@@ -46,7 +44,7 @@ def run():
 
     # Replicar a célula unitária
     replicated_atoms = replicate_edge_crack(
-        atoms, lattice_constants, n_replications_x, n_replications_y, crack_size)
+        atoms, lattice_constants, replications_x, replications_y, crack_size)
 
     n_atoms_modified = replicated_atoms[0]
     atoms_modified = replicated_atoms[1]
