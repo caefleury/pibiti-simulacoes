@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     print()
     print("============================== Generating Structures ==============================\n")
-    replications = [17, 19]  # [x,y]
+    replications = [17, 21]  # [x,y]
     n1_crack.run(replications[0], replications[1], 'x')
     n1_crack.run(replications[0], replications[1], 'y')
     n1_edge_crack.run(replications[0], replications[1])

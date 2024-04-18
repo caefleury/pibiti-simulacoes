@@ -101,7 +101,7 @@ Para as estruturas nesse projeto temos que:
 
 Para o número de replicações temos que:
  - eixo x = 17 
- - eixo y = 19 
+ - eixo y = 21
 
 Portanto, nossa caixa de simulação terá os seguintes valores:
 

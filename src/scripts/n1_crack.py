@@ -40,7 +40,7 @@ def replicate_n1_crack(atoms, lattice_constants, n_replications_x,
 def run(replications_x, replications_y, crack_direction):
     # Parâmetros
     INPUT_UNIT_CELL_FILE = 'src/xyz_structures/unit_cell.xyz'
-    crack_size = 7
+    crack_size = 9
 
     # Ler a célula unitária
     n_atoms, comment, atoms = read_xyz(INPUT_UNIT_CELL_FILE)
