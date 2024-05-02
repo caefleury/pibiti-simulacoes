@@ -10,7 +10,7 @@ read_data       center_crack_structure.charge
 # ---------------------------------
 # ---- Campo de Forca -------------
 # ---------------------------------
-pair_style      reax/c NULL 
+pair_style      reaxff NULL 
 pair_coeff      * * CHO2008-kc2-enable.reaxff C
 # ---------------------------------
 # -------------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ variable    tempo_escrita_restart           equal   1       # em picosegundos
 # -----------------------------------------------------------------------------
 # ---- Variaveis Calculadas (Valores Fixos) -----------------------------------
 # -----------------------------------------------------------------------------
-compute     reax all pair reax/c  
+compute     reax all pair reaxff 
 compute     ke_atomo all  ke/atom
 compute     pe_atomo all  pe/atom
 # -----------------------------------------------------------------------------
@@ -128,7 +128,7 @@ variable    saida_energia_nao_ligada    equal v_energia_nao_ligada
 reset_timestep  0
 timestep        ${passo_tempo}
 neigh_modify    delay 0 
-fix             1 all qeq/reax 1 0.0 10.0 1.0e-6 reax/c
+fix             1 all qeq/reax 1 0.0 10.0 1.0e-6 reaxff
 thermo          ${freq_impressao_vtermo}
 thermo_style    custom step time temp press pe ke etotal 
 thermo_modify   lost warn flush yes
@@ -155,7 +155,7 @@ print   '# INICIO DA EQUILIBRACAO DA ESTRUTURA  #'
 print   '########################################'
 print   ' ' 
 # -----------------------------------------------------------------------------
-velocity    all create ${temperatura} 435112946 rot yes
+velocity    all create ${temperatura} 921109634 rot yes
 # -----------------------------------------------------------------------------
 reset_timestep  0
 fix     equilibracao all npt &
