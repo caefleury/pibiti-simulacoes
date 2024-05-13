@@ -32,6 +32,8 @@ export PYTHONPATH=$PWD/src/utils
 Subistituir `$PWD` pelo caminho até o repositorio. Exemplo: `/home/my_user/.../<nome_do_repositorio>`
 
 ### Configuração do PYTHONPATH em ambiente virtual
+1.  `python3 -m venv venv`
+2.  `source ./venv/bin/activate`
 
 ## Como rodar o arquivo genético:
 
