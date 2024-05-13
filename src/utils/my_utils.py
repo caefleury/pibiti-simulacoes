@@ -80,7 +80,7 @@ def write_strain_y_folders(folder, y_strain_data, structure_charge_file, reaxff_
 def write_melting_file(file, melting_data_file):
     melting_data = return_file_data(melting_data_file)
     random_int = random.randint(100000000, 999999999)
-    velocity = "velocity    all create ${temperatura} %d rot yes\n" % (
+    velocity = "velocity    all create ${temperatura_inicial} %d rot yes\n" % (
         random_int)
     with open(file, 'w') as f:
         for i, line in enumerate(melting_data):
