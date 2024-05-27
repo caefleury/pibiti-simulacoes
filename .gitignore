@@ -2,4 +2,4 @@ __pycache__
 .pytest_cache
 .venv
 .env
-final_output
+src/data/
