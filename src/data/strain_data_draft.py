@@ -2,33 +2,38 @@ import numpy as np
 import matplotlib.pyplot as plt
 import mplcursors
 
-# Certifique-se de adicionar os arquivos das simulações na pasta data
-# Alterar o caminho dos arquivos de dados.
 
-strain = 'strain-x'
-simulation_data = f'pristine/{strain}/2/stress_strain.dat'
-strain_no_gold = np.genfromtxt(f'src/data/no_gold_final_simulation/{simulation_data}') 
-strain_gold = np.genfromtxt(f'src/data/gold_substrate_final_simulation/{simulation_data}')
+strain = 'strain-y'
+simulation_number = 4
+
+simulation_data = f'y_axis_crack/{strain}/{simulation_number}/stress_strain.dat'
+strain_no_gold = np.genfromtxt(
+    f'src/data/no_gold_final_simulation/{simulation_data}')
+strain_gold = np.genfromtxt(
+    f'src/data/gold_substrate_final_simulation/{simulation_data}')
 
 # Criar figura com dois graficos
 fig, axs = plt.subplots(2, figsize=(18, 10))
 
+# Media móvel
 def moving_average(x, window_size):
     return np.convolve(x, np.ones(window_size), 'valid') / window_size
 
-window_size = 1
+window_size = 5
 
 if strain == 'strain-x':
     # Deformacao em x de simulação sem o substrato de ouro
     smoothed_stress_no_gold = moving_average(strain_no_gold[:, 1], window_size)
-    line1, = axs[0].plot(strain_no_gold[:len(smoothed_stress_no_gold), 0], smoothed_stress_no_gold, label='Ex. strain-x simulation without gold substrate')
+    line1, = axs[0].plot(strain_no_gold[:len(smoothed_stress_no_gold), 0],
+                         smoothed_stress_no_gold, label='Ex. strain-x simulation without gold substrate')
     axs[0].set_xlabel('Strain (x)')
     axs[0].set_ylabel('Stress (y)')
     axs[0].legend()
 
     # Deformacao em x de simulação com o substrato de ouro
     smoothed_stress_gold = moving_average(strain_gold[:, 1], window_size)
-    line2, = axs[1].plot(strain_gold[:len(smoothed_stress_gold), 0], smoothed_stress_gold, label='Ex. strain-x simulation with gold substrate')
+    line2, = axs[1].plot(strain_gold[:len(smoothed_stress_gold), 0],
+                         smoothed_stress_gold, label='Ex. strain-x simulation with gold substrate')
     axs[1].set_xlabel('Strain (x)')
     axs[1].set_ylabel('Stress (y)')
     axs[1].legend()
@@ -36,14 +41,16 @@ if strain == 'strain-x':
 elif strain == 'strain-y':
     # Deformacao em y de simulação sem o substrato de ouro
     smoothed_stress_no_gold = moving_average(strain_no_gold[:, 2], window_size)
-    line1, = axs[0].plot(strain_no_gold[:len(smoothed_stress_no_gold), 0], smoothed_stress_no_gold, label='Ex. strain-y simulation without gold substrate')
+    line1, = axs[0].plot(strain_no_gold[:len(smoothed_stress_no_gold), 0],
+                         smoothed_stress_no_gold, label='Ex. strain-y simulation without gold substrate')
     axs[0].set_xlabel('Strain (x)')
     axs[0].set_ylabel('Stress (y)')
     axs[0].legend()
 
     # Deformacao em y de simulação com o substrato de ouro
     smoothed_stress_gold = moving_average(strain_gold[:, 2], window_size)
-    line2, = axs[1].plot(strain_gold[:len(smoothed_stress_gold), 0], smoothed_stress_gold, label='Ex. strain-y simulation with gold substrate')
+    line2, = axs[1].plot(strain_gold[:len(smoothed_stress_gold), 0],
+                         smoothed_stress_gold, label='Ex. strain-y simulation with gold substrate')
     axs[1].set_xlabel('Strain (x)')
     axs[1].set_ylabel('Stress (y)')
     axs[1].legend()
@@ -57,10 +64,12 @@ def on_add1(sel):
     x, y = sel.target
     sel.annotation.set(text=f'Strain(x): {x:.4f}\nStress(y): {y:.4f}')
 
+
 @cursor2.connect("add")
 def on_add2(sel):
     x, y = sel.target
     sel.annotation.set(text=f'Strain(x): {x:.4f}\nStress(y): {y:.4f}')
+
 
 # Ajustar layout e plotar
 plt.tight_layout()

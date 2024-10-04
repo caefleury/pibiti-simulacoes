@@ -89,3 +89,6 @@ class TestStrain():
             folder + '/strain-y/4/center_crack_structure.charge')
         assert os.path.exists(
             folder + '/strain-y/5/center_crack_structure.charge')
+
+    def test_update_strain_config_file(self):
+        pass
