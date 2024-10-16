@@ -6,5 +6,6 @@ src/data/gold_substrate_final_simulation
 src/data/sim_com_rasgo_aparente
 src/data/no_gold_final_simulation
 src/data/tests
-
+src/data/images
+src/data/vmd config
 

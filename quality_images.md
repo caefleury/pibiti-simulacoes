@@ -12,8 +12,29 @@ Steps:
 3. Navigate to the “Display Settings” options.
 4. Turn “Shadows” and “Ambient Occlusion” on.
 5. Navigate to the “Materials” options.
-6. Navigate to the “Render” options 
-7. Duplicate a material so you can modify the settings. Here I duplicated and modified the “AOChalky” material.
+6. Navigate to the “Render” options
+7. Duplicate a material so you can modify the settings.
+   Here I duplicated and modified the “AOChalky” material.
 8. Select the tachyon ray tracing option.
-9. Resize the display window using the console because you can make it bigger than the size of your screen this way. This may cause the view window to go blank. Don’t panic that’s fine. Render using the tachyon setting. This may take some time. 
+9. Resize the display window using the console because you can make it
+   bigger than the size of your screen this way - display resize 3840 2160.
+   This may cause the view window to go blank.
+   Don't panic that's fine. Render using the tachyon setting. This may take some time.
 10. Save the visualization state for future renders.
+
+Load visualization state saves the current visualization
+
+## Representations
+
+1. Drawing Method: CPK
+2. Sphere schale: 1.4
+3. Sphere resolution: 100
+4. Bond radius: 0.9
+5. Bond resolution: 100
+
+para as imagens das folhas para a parte da introdução, foi utilizado os arquivos de termalização.lammpstrj, pois os arquivos .xyz estavam com problemas de formatação. 
+
+-fullshade -auto_skylight 0.7 -aasamples 12 %s -format PNG -res 6000 4000 -o %s.png
+
+x_axis = 4
+y_axis = 1

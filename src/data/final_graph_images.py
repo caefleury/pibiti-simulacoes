@@ -33,33 +33,29 @@ for i, strain_gold in enumerate(trimmed_data):
         if strain == 'strain-x':
             smoothed_stress_gold = moving_average(strain_gold[:, 1], window_size)
             ax.plot(strain_gold[:len(smoothed_stress_gold), 0],
-                    smoothed_stress_gold, color=colors[i])
+                    smoothed_stress_gold, color=colors[i], linewidth=2.5)
         elif strain == 'strain-y':
             smoothed_stress_gold = moving_average(strain_gold[:, 2], window_size)
             ax.plot(strain_gold[:len(smoothed_stress_gold), 0],
-                    smoothed_stress_gold, color=colors[i])
+                    smoothed_stress_gold, color=colors[i], linewidth=2.5)
     else:
         if strain == 'strain-x':
             smoothed_stress_gold = moving_average(strain_gold[:, 1], window_size)
             ax.plot(strain_gold[:len(smoothed_stress_gold), 0],
-                    smoothed_stress_gold, color=colors[i])
+                    smoothed_stress_gold, color=colors[i], linewidth=2.5)
         elif strain == 'strain-y':
             smoothed_stress_gold = moving_average(strain_gold[:, 2], window_size)
             ax.plot(strain_gold[:len(smoothed_stress_gold), 0],
-                    smoothed_stress_gold, color=colors[i])
+                    smoothed_stress_gold, color=colors[i], linewidth=2.5)
 
 # Make the graph borders darker/bolder
 for spine in ax.spines.values():
     spine.set_linewidth(2)  # Increase this value for thicker borders
     spine.set_color('black')  # Change to your preferred color
 
-ax.set_xlabel('')
-ax.set_ylabel('')
-ax.set_xticklabels([])
-ax.set_yticklabels([])
 
 # Set the y-axis limit
-ax.set_ylim(bottom=0, top=max_height )  # Add 10% margin above the max value
+ax.set_ylim(bottom=0, top=max_height ) 
 
 plt.margins(0)
 plt.tight_layout()
