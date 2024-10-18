@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import mplcursors
 
 
-strain = 'strain-y'
-simulation_number = 4
+strain = 'strain-x'
+simulation_number = 2
 
-simulation_data = f'y_axis_crack/{strain}/{simulation_number}/stress_strain.dat'
+simulation_data = f'pristine/{strain}/{simulation_number}/stress_strain.dat'
 strain_no_gold = np.genfromtxt(
     f'src/data/no_gold_final_simulation/{simulation_data}')
 strain_gold = np.genfromtxt(
@@ -19,7 +19,7 @@ fig, axs = plt.subplots(2, figsize=(18, 10))
 def moving_average(x, window_size):
     return np.convolve(x, np.ones(window_size), 'valid') / window_size
 
-window_size = 5
+window_size = 2
 
 if strain == 'strain-x':
     # Deformacao em x de simulação sem o substrato de ouro

@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import mplcursors
 
 gold_substrate = True
-strain = 'strain-x'
-base_path = 'center_crack/{strain}/{i}/stress_strain.dat'
+strain = 'strain-y'
+base_path = 'y_axis_crack/{strain}/{i}/stress_strain.dat'
 
 # Criar figura para um gráfico
 fig, ax = plt.subplots(figsize=(18, 10))
@@ -12,13 +12,13 @@ fig, ax = plt.subplots(figsize=(18, 10))
 def moving_average(x, window_size):
     return np.convolve(x, np.ones(window_size), 'valid') / window_size
 
-window_size = 10
+window_size = 30
 colors = ['b', 'g', 'r', 'c', 'm']  # Cores para as 5 simulações
 
 for i in range(1, 6):
     # Caminho para cada simulação
     simulation_data = base_path.format(strain=strain, i=i)
-    
+
     # Carregar dados das simulações com substrato de ouro
     strain_gold = np.genfromtxt(f'src/data/gold_substrate_final_simulation/{simulation_data}')
     
