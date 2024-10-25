@@ -4,7 +4,6 @@ import sys
 
 def run_commands_in_virtualenv(commands):
     try:
-        # Run each command in the virtual environment
         for command in commands:
             subprocess.run(command, check=True, shell=True)
 

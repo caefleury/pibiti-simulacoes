@@ -4,3 +4,4 @@ pytest
 matplotlib
 numpy
 mplcursors
+pandas

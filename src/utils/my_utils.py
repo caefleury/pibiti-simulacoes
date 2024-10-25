@@ -100,3 +100,7 @@ def write_melting_seeds(folder, melting_data_file, structure_charge_file, reaxff
                     structure_charge_file, current_folder)
         write_melting_file(current_folder + '/melting.in',
                            melting_data_file)
+
+
+def update_strain_config_file():
+    pass
