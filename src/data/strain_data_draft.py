@@ -4,7 +4,7 @@ import mplcursors
 
 
 strain = 'strain-x'
-simulation_number = 2
+simulation_number = 1
 
 simulation_data = f'pristine/{strain}/{simulation_number}/stress_strain.dat'
 strain_no_gold = np.genfromtxt(
@@ -19,7 +19,7 @@ fig, axs = plt.subplots(2, figsize=(18, 10))
 def moving_average(x, window_size):
     return np.convolve(x, np.ones(window_size), 'valid') / window_size
 
-window_size = 2
+window_size = 30
 
 if strain == 'strain-x':
     # Deformacao em x de simulação sem o substrato de ouro
